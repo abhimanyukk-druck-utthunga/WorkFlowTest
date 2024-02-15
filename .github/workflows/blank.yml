@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-script:
-    runs-on: alpine
+    runs-on: ubuntu-latest
 
 
     steps:
