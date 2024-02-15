@@ -12,7 +12,4 @@ jobs:
 
     steps:
     - name: List1
-      run: uname -a
-
-    - name: List2
-      run: uname -a
+      run: echo $nproc
