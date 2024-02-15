@@ -7,12 +7,12 @@ on:
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest
+    runs-on: alpine
 
-    container:
-      image: alpine
-      options: --entrypoint "sh"
 
     steps:
-    - name: List
+    - name: List1
+      run: uname -a
+
+    - name: List2
       run: uname -a
