@@ -12,4 +12,4 @@ jobs:
 
     steps:
     - name: List1
-      run: echo $nproc
+      run: nproc
