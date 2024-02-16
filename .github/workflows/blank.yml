@@ -4,13 +4,19 @@ on:
   push:
     branches:
       - '*'
-    branches-ignore: 
-      - main
 
 jobs:
   print-branch-job-1:
     runs-on: ubuntu-latest
     
+    if: |
+      github.event_name == 'push' &&
+      (
+        github.ref != 'refs/heads/main' &&
+        github.ref != 'refs/heads/dev' &&
+        github.ref != 'refs/heads/test'
+      )
+
     steps:
       - name: Print Current Branch
         run: echo "Current branch"
