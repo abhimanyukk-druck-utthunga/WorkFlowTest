@@ -1,16 +1,17 @@
-name: Run PowerShell Script with Arguments
+name: Print Current Branch
 
 on:
   push:
     branches:
+      - dev
       - main
+      - test
 
 jobs:
-  run-script:
+  print-branch-job-1:
     runs-on: ubuntu-latest
 
-
+    if: github.ref != 'refs/heads/main'
     steps:
-    - name: List1
-      run: |
-        echo "PR Branch Name: ${{ github.head_ref }}"
+      - name: Print Current Branch
+        run: echo "Current branch: ${{github.ref}}"
