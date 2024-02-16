@@ -8,8 +8,7 @@ on:
 jobs:
   print-branch-job-1:
     runs-on: ubuntu-latest
-
-    if: github.ref != 'refs/heads/main'
+    
     steps:
       - name: Print Current Branch
         run: echo "Current branch"
