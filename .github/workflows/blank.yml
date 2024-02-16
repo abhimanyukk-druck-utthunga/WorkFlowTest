@@ -3,9 +3,7 @@ name: Print Current Branch
 on:
   push:
     branches:
-      - dev
-      - main
-      - test
+      - '*'
 
 jobs:
   print-branch-job-1:
