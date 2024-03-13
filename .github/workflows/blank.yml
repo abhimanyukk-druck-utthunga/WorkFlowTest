@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-        ref: main
-        token: ${{secrets.DOCKER_PASSWORD}}
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          token: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
