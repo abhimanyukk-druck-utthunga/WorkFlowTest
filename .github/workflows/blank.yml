@@ -10,6 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          # ref: dev
           token: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Setup Node.js
@@ -27,17 +28,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # - name: Read JSON file
-      #   run: |
-      #     contents=$(<version.json)
-      #     version_bump=$(echo "$contents" | jq '.version.revision += 1')
-      #     echo "$version_bump" > version.json
+      - name: Read JSON file
+        run: |
+          current_branch=${{github.ref}}
 
-      #     git config --local user.email "action@github.com"
-      #     git config --local user.name "GitHub Action"
-      #     git add version.json
-      #     git commit -m "Revision bump"
-      #     git push
+          git checkout dev
+
+          contents=$(<version.json)
+
+          git checkout $current_branch
+          version_bump=$(echo "$contents" | jq '.version.revision += 1')
+          echo "$version_bump" > version.json
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add version.json
+          git commit -m "Revision bump"
+          git push 
 
       - name: Build and push Docker image
         run: |
