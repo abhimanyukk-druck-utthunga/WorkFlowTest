@@ -12,10 +12,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
       - name: Read JSON file
         run: |
-          contents=$(<./version.json)
-          echo "$contents"
+          contents=$(<./.version)
+          major=$(node -e "console.log(JSON.parse('$contents').version.major)")
+          major=$(node -e "console.log(JSON.parse('$contents').version.minor)")
+          major=$(node -e "console.log(JSON.parse('$contents').version.build)")
+          major=$(node -e "console.log(JSON.parse('$contents').version.revision)")
+          echo "Major: $major"
+          echo "Major: $minor"
+          echo "Major: $build"
+          echo "Major: $revision"
 
       # - name: Build and push Docker image
       #   run: |
