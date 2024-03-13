@@ -17,6 +17,7 @@ jobs:
         run: |
           current_branch=${{github.ref}}
           contents=$(<version.json)
+          echo $contents > /tmp/version
           echo "Version: $contents"
 
       - name: Checkout repository
@@ -32,6 +33,7 @@ jobs:
             
       - name: Bump the revision
         run: |
+          contents=$(</tmp/version)
           echo "Version: $contents"
           version_bump=$(echo "$contents" | jq '.version.revision += 1')
           echo "$version_bump" > version.json
