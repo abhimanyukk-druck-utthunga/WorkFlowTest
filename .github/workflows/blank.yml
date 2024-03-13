@@ -20,14 +20,11 @@ jobs:
       - name: Read JSON file
         run: |
           contents=$(<./version.json)
-          major=$(node -e "console.log(JSON.parse($contents).version.major)")
-          major=$(node -e "console.log(JSON.parse($contents).version.minor)")
-          major=$(node -e "console.log(JSON.parse($contents).version.build)")
-          major=$(node -e "console.log(JSON.parse($contents).version.revision)")
+          major=$(echo "$contents" | jq -r '.version')
+          minor=$(echo "$contents" | jq -r '.version.minor')
+        
           echo "Major: $major"
           echo "Major: $minor"
-          echo "Major: $build"
-          echo "Major: $revision"
 
       # - name: Build and push Docker image
       #   run: |
