@@ -32,7 +32,7 @@ jobs:
         run: |
           current_branch=${{github.ref}}
 
-          git checkout dev
+          git checkout refs/head/dev
 
           contents=$(<version.json)
 
