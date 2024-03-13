@@ -25,9 +25,10 @@ jobs:
 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git remote set-url origin https://x-access-token:${{ secrets.DOCKER_PASSWORD }}@github.com/${{ github.repository }}
           git add version.json
           git commit -m "Revision bump"
-          git push https://${{ secrets.DOCKER_PASSWORD }}@github.com/${{ github.repository }}.git main
+          git push
 
       # - name: Build and push Docker image
       #   run: |
