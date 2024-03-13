@@ -19,9 +19,9 @@ jobs:
 
       - name: Read JSON file
         run: |
-          contents=$(<./version.json)
+          contents=$(<version.json)
           version_bump=$(echo "$contents" | jq '.version.revision += 1')
-          echo "$version_bump" > path/to/your/file.json
+          echo "$version_bump" > version.json
 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
