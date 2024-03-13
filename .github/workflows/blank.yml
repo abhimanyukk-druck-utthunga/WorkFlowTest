@@ -27,10 +27,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add version.json
           git commit -m "Revision bump"
-          git push https://$GH_PAT@github.com/${{ github.repository }}.git main
-
-        env:
-          GH_PAT: ${{ secrets.DOCKER_PASSWORD }}
+          git push https://${{ secrets.DOCKER_PASSWORD }}github.com/${{ github.repository }}.git main
 
       # - name: Build and push Docker image
       #   run: |
