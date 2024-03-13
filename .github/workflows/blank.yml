@@ -53,11 +53,10 @@ jobs:
 
           ls -l
 
-      # - name: Push
-      #   run: |
           docker buildx build \
           --platform arm64 \
           --build-arg ver="version" \
           --push \
           -t ghcr.io/abhimanyuk-druck-utthunga/workflowtest:$version \
           -f ./Dockerfile .
+
