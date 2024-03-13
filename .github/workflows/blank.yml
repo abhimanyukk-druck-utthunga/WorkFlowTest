@@ -10,42 +10,47 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          # ref: dev
+          ref: dev
+          token: ${{secrets.DOCKER_PASSWORD}}
+          
+      - name: Read JSON file
+        run: |
+          current_branch=${{github.ref}}
+          contents=$(<version.json)
+          echo "Version: $contents"
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: test
           token: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+            
+      - name: Bump the revision
+        run: |
+          echo "Version: $contents"
+          version_bump=$(echo "$contents" | jq '.version.revision += 1')
+          echo "$version_bump" > version.json
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add version.json
+          git commit -m "Revision bump"
+          git push 
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-        
+              uses: docker/setup-buildx-action@v1
+            
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Read JSON file
-        run: |
-          current_branch=${{github.ref}}
-          git branch -a
-
-# git checkout refs/heads/dev
-
-# contents=$(<version.json)
-
-# git checkout $current_branch
-# version_bump=$(echo "$contents" | jq '.version.revision += 1')
-# echo "$version_bump" > version.json
-
-# git config --local user.email "action@github.com"
-# git config --local user.name "GitHub Action"
-# git add version.json
-# git commit -m "Revision bump"
-# git push 
 
       - name: Build and push Docker image
         run: |
