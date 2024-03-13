@@ -1,7 +1,8 @@
-name: Auto Version Bump
+name: Release
 
 on:
-  workflow_dispatch:
+  push:
+    - dev
 
 jobs:
   bump:
