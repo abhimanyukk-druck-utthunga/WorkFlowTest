@@ -56,7 +56,6 @@ jobs:
           -f ci/debug_dockerfile/Dockerfile \
           --platform arm64 \
           --target pace2_debug_runtime \
-          --build-arg sdk_image=ghcr.io/druck-pressure/pace2_service/sdk:latest \
+          --build-arg ver=$version \
           --push \
-          -t ghcr.io/abhimanyuk-druck-utthunga/workflowtest:$version \
-          dist/
+          -t ghcr.io/abhimanyuk-druck-utthunga/workflowtest:$version .
