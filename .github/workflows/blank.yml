@@ -20,11 +20,15 @@ jobs:
       - name: Read JSON file
         run: |
           contents=$(<./version.json)
-          major=$(echo "$contents" | jq -r '.version')
+          major=$(echo "$contents" | jq -r '.version.major')
           minor=$(echo "$contents" | jq -r '.version.minor')
+          minor=$(echo "$contents" | jq -r '.version.build')
+          minor=$(echo "$contents" | jq -r '.version.revision')
         
           echo "Major: $major"
-          echo "Major: $minor"
+          echo "Minor: $minor"
+          echo "Build: $build"
+          echo "Revision: $revision"
 
       # - name: Build and push Docker image
       #   run: |
