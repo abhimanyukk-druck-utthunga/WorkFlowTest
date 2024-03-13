@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        ref: main
+        token: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -25,7 +27,6 @@ jobs:
 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git remote set-url origin https://x-access-token:${{ secrets.DOCKER_PASSWORD }}@github.com/${{ github.repository }}
           git add version.json
           git commit -m "Revision bump"
           git push
