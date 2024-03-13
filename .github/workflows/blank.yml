@@ -27,7 +27,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add version.json
           git commit -m "Revision bump"
-          git push https://${{ secrets.DOCKER_PASSWORD }}github.com/${{ github.repository }}.git main
+          git push https://${{ secrets.DOCKER_PASSWORD }}@github.com/${{ github.repository }}.git main
 
       # - name: Build and push Docker image
       #   run: |
