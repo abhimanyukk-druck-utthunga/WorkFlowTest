@@ -2,7 +2,8 @@ name: Release
 
 on:
   push:
-    - dev
+    branch:
+      - dev
 
 jobs:
   bump:
