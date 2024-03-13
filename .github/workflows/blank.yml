@@ -31,20 +31,21 @@ jobs:
       - name: Read JSON file
         run: |
           current_branch=${{github.ref}}
+          git branch -a
 
-          git checkout refs/heads/dev
+# git checkout refs/heads/dev
 
-          contents=$(<version.json)
+# contents=$(<version.json)
 
-          git checkout $current_branch
-          version_bump=$(echo "$contents" | jq '.version.revision += 1')
-          echo "$version_bump" > version.json
+# git checkout $current_branch
+# version_bump=$(echo "$contents" | jq '.version.revision += 1')
+# echo "$version_bump" > version.json
 
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add version.json
-          git commit -m "Revision bump"
-          git push 
+# git config --local user.email "action@github.com"
+# git config --local user.name "GitHub Action"
+# git add version.json
+# git commit -m "Revision bump"
+# git push 
 
       - name: Build and push Docker image
         run: |
