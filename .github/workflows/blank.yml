@@ -19,7 +19,7 @@ jobs:
 
       - name: Read JSON file
         run: |
-          contents=$(<./.version)
+          contents=$(<./version.json)
           major=$(node -e "console.log(JSON.parse('$contents').version.major)")
           major=$(node -e "console.log(JSON.parse('$contents').version.minor)")
           major=$(node -e "console.log(JSON.parse('$contents').version.build)")
