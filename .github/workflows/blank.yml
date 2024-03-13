@@ -20,15 +20,14 @@ jobs:
       - name: Read JSON file
         run: |
           contents=$(<./version.json)
-          major=$(echo "$contents" | jq -r '.version.major')
-          minor=$(echo "$contents" | jq -r '.version.minor')
-          build=$(echo "$contents" | jq -r '.version.build')
-          revision=$(echo "$contents" | jq '.version.revision += 1')
+          version_bump=$(echo "$contents" | jq '.version.revision += 1')
+          echo "$version_bump" > path/to/your/file.json
 
-          echo "Major: $major"
-          echo "Minor: $minor"
-          echo "Build: $build"
-          echo "Revision: $revision"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add version.json
+          git commit -m "Revision bump"
+          git push
 
       # - name: Build and push Docker image
       #   run: |
