@@ -1,8 +1,8 @@
 name: Release
 
 on:
-  push:
-    branch:
+  pull_request:
+    branches:
       - dev
 
 jobs:
@@ -51,12 +51,9 @@ jobs:
 
           version="$major.$minor.$build.$revision"
 
-          ls -l
-
           docker buildx build \
           --platform arm64 \
-          --build-arg ver="version" \
+          --build-arg ver=$version \
           --push \
-          -t ghcr.io/abhimanyuk-druck-utthunga/workflowtest:$version \
-          -f ./Dockerfile .
+          -t ghcr.io/abhimanyuk-druck-utthunga/workflowtest:$version .
 
