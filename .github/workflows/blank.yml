@@ -49,7 +49,7 @@ jobs:
 
           version="$major.$minor.$build.$revision"
 
-          docker pull --platform=arm64 ghcr.io/abhimanyuk-druck-utthunga/workflowtest:latest
+          docker pull ghcr.io/abhimanyuk-druck-utthunga/workflowtest:latest
 
           # docker buildx build \
           # --platform arm64 \
