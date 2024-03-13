@@ -53,9 +53,7 @@ jobs:
           version="$major.$minor.$build.$revision"
 
           docker buildx build \
-          -f ci/debug_dockerfile/Dockerfile \
           --platform arm64 \
-          --target pace2_debug_runtime \
           --build-arg ver=$version \
           --push \
           -t ghcr.io/abhimanyuk-druck-utthunga/workflowtest:$version .
