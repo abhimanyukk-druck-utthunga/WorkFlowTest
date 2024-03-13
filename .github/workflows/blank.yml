@@ -22,9 +22,9 @@ jobs:
           contents=$(<./version.json)
           major=$(echo "$contents" | jq -r '.version.major')
           minor=$(echo "$contents" | jq -r '.version.minor')
-          minor=$(echo "$contents" | jq -r '.version.build')
-          minor=$(echo "$contents" | jq -r '.version.revision')
-        
+          build=$(echo "$contents" | jq -r '.version.build')
+          revision=$(echo "$contents" | jq '.version.revision += 1')
+
           echo "Major: $major"
           echo "Minor: $minor"
           echo "Build: $build"
