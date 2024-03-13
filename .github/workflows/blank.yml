@@ -49,11 +49,9 @@ jobs:
 
           version="$major.$minor.$build.$revision"
 
-          docker pull ghcr.io/abhimanyukk-druck-utthunga/workflowtest:latest
-
-          # docker buildx build \
-          # --platform arm64 \
-          # --build-arg ver=$version \
-          # --push \
-          # -t ghcr.io/abhimanyukk-druck-utthunga/workflowtest:$version .
+          docker buildx build \
+          --platform arm64 \
+          --build-arg ver=$version \
+          --push \
+          -t ghcr.io/abhimanyukk-druck-utthunga/workflowtest:$version .
 
