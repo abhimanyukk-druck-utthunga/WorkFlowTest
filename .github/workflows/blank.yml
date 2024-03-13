@@ -1,21 +1,42 @@
-name: Print Current Branch
+name: Auto Version Bump
 
 on:
   push:
     branches:
-      - '*'
+      - main
 
 jobs:
-  print-branch-job-1:
+  bump:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Print branch
+      - name: Get current version
+        id: get_version
         run: |
-          echo ${{steps.extract_branch.outputs.branch}}
-              
+          # Use a script or command to retrieve the current version from a file, Docker image tag, etc.
+          # For example, you might use 'grep' to extract the version from a file
+          echo "::set-output name=version::$(grep -oP '(?<=VERSION=")[^"]*' version.json)"
+
+      - name: Increment version
+        id: increment_version
+        run: |
+          # Use a script or command to increment the version
+          # For example, you might use 'semver' tool or write a custom script to increment the version
+          previous_version="${{ steps.get_version.outputs.version }}"
+          # Increment the version (example: incrementing patch version)
+          new_version=$(semver bump patch "$previous_version")
+          echo "::set-output name=new_version::$new_version"
+
+      - name: Update version in files
+        run: |
+          # Use a script or command to update the version in relevant files
+          # For example, you might use 'sed' to update the version in a Dockerfile
+          sed -i "s/VERSION=\"${{ steps.get_version.outputs.version }}\"/VERSION=\"$new_version\"/" version.json
+
+      # - name: Build and push Docker image
+      #   run: |
+      #     docker build -t your-image-name:${{ steps.increment_version.outputs.new_version }} .
+      #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ github.actor }}" --password-stdin
+      #     docker push your-image-name:${{ steps.increment_version.outputs.new_version }}
