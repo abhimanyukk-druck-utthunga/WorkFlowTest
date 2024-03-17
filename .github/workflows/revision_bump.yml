@@ -68,3 +68,4 @@ jobs:
           --build-arg commit=${{github.sha}} \
           --push \
           -t ghcr.io/abhimanyukk-druck-utthunga/workflowtest:$version .
+
