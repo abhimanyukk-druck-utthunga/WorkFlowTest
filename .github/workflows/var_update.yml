@@ -1,0 +1,23 @@
+name: Update Repository Variable
+
+on:
+  push:
+    branches:
+      - repo-var
+
+jobs:
+  update-variable:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Set Repository Variable
+        env:
+          REPO_VAR_NAME: MY_VAR
+          NEW_VALUE: "My Dear"
+        run: |
+          echo "Updating repository variable..."
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/secrets/${REPO_VAR_NAME} \
+            -d "{\"encrypted_value\":\"$(echo -n $NEW_VALUE | base64)\"}"
