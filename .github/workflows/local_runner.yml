@@ -1,9 +1,7 @@
 name: Self-hosted Runner Example
 
 on:
-  push:
-    branches:
-      - local-runner
+  workflow_dispatch:
 
 jobs:
   build:
