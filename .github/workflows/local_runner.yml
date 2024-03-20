@@ -1,0 +1,13 @@
+name: Self-hosted Runner Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: verdin-som-29
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      # Add more steps here as needed for your workflow
